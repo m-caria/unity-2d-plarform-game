@@ -11,7 +11,6 @@ public class GUI : MonoBehaviour
     public TextMeshProUGUI fruitText;
     public TextMeshProUGUI timerText;
     public bool useTimer = true;
-    public float levelCompleteTimerSeconds = 180.0F;
 
     [Header("GUI Frames")]
     public GameObject gameOverFrame;
@@ -25,7 +24,7 @@ public class GUI : MonoBehaviour
         gameOverFrame.SetActive(false);
         pauseMenu.SetActive(false);
 
-        currentTime = levelCompleteTimerSeconds;
+        currentTime = GameManager.levelCompleteTimerSeconds;
 
         if (!useTimer)
         {
@@ -49,6 +48,12 @@ public class GUI : MonoBehaviour
         Destroy(livesContainer.GetChild(livesContainer.childCount - 1).gameObject);
         if (livesContainer.childCount == 1)
             GameOver();
+    }
+
+    public void AddLive()
+    {
+        Vector2 position = new(livesContainer.position.x + 40.0F * livesContainer.childCount, livesContainer.position.y - 8.0F);
+        Instantiate(liveImage, position, Quaternion.identity, livesContainer);
     }
 
     public void UpdateFruit(int quantity)

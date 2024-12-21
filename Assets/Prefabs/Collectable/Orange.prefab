@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4471235957358299865}
   - component: {fileID: 3031223911928891313}
   - component: {fileID: 3441141211046422992}
+  - component: {fileID: -9137352062192722489}
   - component: {fileID: 3513379630436289806}
   m_Layer: 0
   m_Name: Orange
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 4121880872312635667, guid: ffc9f271fad56c243a45f100b9dc6778, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -127,6 +128,36 @@ MonoBehaviour:
   type: 7
   collectedAnimation: {fileID: 5792692361850665397, guid: c34c130136e22524293062ca0cafb5da, type: 3}
   collectedAudioClip: {fileID: 8300000, guid: f9ce0bd536f6f4244b7151c5ba3c341e, type: 3}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!50 &-9137352062192722489
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785780024754438640}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &3513379630436289806
 CircleCollider2D:
   m_ObjectHideFlags: 0

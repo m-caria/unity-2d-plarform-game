@@ -200,6 +200,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerStats:
-    Lives: 0
+    Lives: 3
+    Fruits: 0
   jumpAudioClip: {fileID: 8300000, guid: dfa3ab4123c43bd6fae58d0ed5b8e713, type: 3}
   hitAudioClip: {fileID: 8300000, guid: 94cb4bb3dcfc6f321af0ad8de768f4eb, type: 3}

@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.GetGUI().IsTimerEnd())
+        if (GameManager.GetGUI().IsTimerEnd() && GameManager.GetGUI().useTimer)
             GameManager.GetGUI().GameOver();
 
         if (!GameManager.IsGamePaused)
@@ -114,10 +114,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnHitTrap(int damage)
     {
-        SoundFXManager.instance.PlaySoundFXClip(hitAudioClip, transform.position);
+        SoundFXManager.instance.PlaySoundFXClip(hitAudioClip, transform.position, isAudio2D: true);
         playerAnimations.Hit();
         playerStats.Lives -= damage;
         GameManager.GetGUI().RemoveLive();
+    }
+
+    public void OnRestoreLive(int heal)
+    {
+        playerStats.Lives += heal;
+        GameManager.GetGUI().AddLive();
     }
 
     public void OnCollectFruit(int quanity)
@@ -141,17 +147,17 @@ public class PlayerController : MonoBehaviour
         {
             if (playerControllerStats.IsWallSliding && canJumpOnWall)
             {
-                SoundFXManager.instance.PlaySoundFXClip(jumpAudioClip, transform.position);
+                SoundFXManager.instance.PlaySoundFXClip(jumpAudioClip, transform.position, isAudio2D: true);
                 WallJump();
             }
             else if (playerControllerStats.IsGrounded)
             {
-                SoundFXManager.instance.PlaySoundFXClip(jumpAudioClip, transform.position);
+                SoundFXManager.instance.PlaySoundFXClip(jumpAudioClip, transform.position, isAudio2D: true);
                 PerformJump();
             }
             else if (playerControllerStats.CanDoubleJump)
             {
-                SoundFXManager.instance.PlaySoundFXClip(jumpAudioClip, transform.position, pitch: 1.5F);
+                SoundFXManager.instance.PlaySoundFXClip(jumpAudioClip, transform.position, pitch: 1.5F, isAudio2D: true);
                 playerControllerStats.CanMove = true;
                 playerControllerStats.CanDoubleJump = false;
                 PerformJump();

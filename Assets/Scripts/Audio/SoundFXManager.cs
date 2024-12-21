@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class SoundFXManager : MonoBehaviour
 
     [SerializeField] private AudioSource soundFxObject;
 
+    private bool wasGamePaused = false;
     private Dictionary<string, AudioSource> fxSoundsMap = new();
 
     private void Awake()
@@ -15,12 +17,33 @@ public class SoundFXManager : MonoBehaviour
             instance = this;
     }
 
-    public void PlaySoundFXClip(AudioClip clip, Vector2 position, float volume = 1.0F, float pitch = 1.0F, float destroyAfter = 0.0F, Transform parent = null)
+    private void Update()
+    {
+        if (GameManager.IsGamePaused != wasGamePaused)
+        {
+            wasGamePaused = GameManager.IsGamePaused;
+
+            if (wasGamePaused)
+            {
+                foreach (AudioSource audioSource in fxSoundsMap.Values)
+                    audioSource.Pause();
+            }
+            else
+            {
+                foreach (AudioSource audioSource in fxSoundsMap.Values)
+                    audioSource.UnPause();
+            }
+        }
+    }
+
+    public void PlaySoundFXClip(AudioClip clip, Vector2 position, float volume = 1.0F, float pitch = 1.0F, float destroyAfter = 0.0F, Transform parent = null, bool isAudio2D = false)
     {
         AudioSource audioSource = Instantiate(soundFxObject, parent);
 
         if (parent != null) audioSource.transform.localPosition = position;
         else audioSource.transform.position = position;
+
+        if (isAudio2D) audioSource.spatialBlend = 0.0F;
 
         audioSource.clip = clip;
         audioSource.volume = volume;
@@ -32,15 +55,17 @@ public class SoundFXManager : MonoBehaviour
 
         Destroy(audioSource.gameObject, destroyTime);
 
-        fxSoundsMap.Remove(clip.name);
+        StartCoroutine(RemoveSoundFromMap(clip.name, destroyTime));
     }
 
-    public void PlaySoundFXClip(AudioClip clip, Vector2 position, Vector2 distance, float volume = 1.0F, float pitch = 1.0F, float destroyAfter = 0.0F, Transform parent = null)
+    public void PlaySoundFXClip(AudioClip clip, Vector2 position, Vector2 distance, float volume = 1.0F, float pitch = 1.0F, float destroyAfter = 0.0F, Transform parent = null, bool isAudio2D = false)
     {
         AudioSource audioSource = Instantiate(soundFxObject, parent);
 
         if (parent != null) audioSource.transform.localPosition = position;
         else audioSource.transform.position = position;
+
+        if (isAudio2D) audioSource.spatialBlend = 0.0F;
 
         audioSource.clip = clip;
         audioSource.volume = volume;
@@ -54,7 +79,7 @@ public class SoundFXManager : MonoBehaviour
         float destroyTime = destroyAfter > 0 ? destroyAfter : clip.length;
         Destroy(audioSource.gameObject, destroyTime);
 
-        fxSoundsMap.Remove(clip.name);
+        StartCoroutine(RemoveSoundFromMap(clip.name, destroyTime));
     }
 
     public void DestroySoundFXClip(AudioClip clip)
@@ -65,5 +90,11 @@ public class SoundFXManager : MonoBehaviour
             Destroy(audioSource.gameObject);
             fxSoundsMap.Remove(clip.name);
         }
+    }
+
+    private IEnumerator RemoveSoundFromMap(string name, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        fxSoundsMap.Remove(name);
     }
 }

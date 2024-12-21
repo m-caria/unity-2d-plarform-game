@@ -20,6 +20,7 @@ public class SpikeHeadTrap : MonoBehaviour
 
     [Header("General Settings")]
     public Direction direction;
+    public int damages = 2;
 
     [Header("Detection Settings")]
     public float detectionRange = 5.0F;
@@ -148,7 +149,7 @@ public class SpikeHeadTrap : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.OnHitTrap(1);
+            playerController.OnHitTrap(damages);
         }
     }
 

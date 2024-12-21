@@ -7,14 +7,17 @@ public class GameManager : MonoBehaviour
 
     [Header("Game")]
     public static int currentScene = 1;
+    public static float levelCompleteTimerSeconds = 180.0F;
 
     public static bool IsGamePaused { get; private set; }
+    public static bool IsLevelStarted { get; private set; }
 
     private static GUI gui;
 
     private void Awake()
     {
         IsGamePaused = false;
+        IsLevelStarted = false;
         Time.timeScale = 1;
         gui = guiGameObject.GetComponent<GUI>();
     }
@@ -36,6 +39,9 @@ public class GameManager : MonoBehaviour
         IsGamePaused = false;
         Time.timeScale = 1;
     }
+
+    public static void StartLevel() => IsLevelStarted = true;
+    public static void EndLevel() => IsLevelStarted = false;
 
     public static GUI GetGUI() => gui;
     public static int GetCurrentScene() => currentScene;

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
+    public AudioClip startAudioClip;
+
     private bool isAlreadyExited = false;
     private Animator animator;
 
@@ -18,6 +20,7 @@ public class StartPoint : MonoBehaviour
             {
                 isAlreadyExited = true;
                 animator.SetTrigger("move");
+                SoundFXManager.instance.PlaySoundFXClip(startAudioClip, transform.position);
             }
         }
     }

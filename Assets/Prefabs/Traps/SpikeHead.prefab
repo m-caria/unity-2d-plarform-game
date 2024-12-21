@@ -199,8 +199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  detectionRange: 15
-  detectionWidth: 4
+  damages: 2
+  detectionRange: 5.4
+  detectionWidth: 4.12
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -213,3 +214,4 @@ MonoBehaviour:
   returnSpeed: 50
   crashAudioClip: {fileID: 8300000, guid: 4e7a7e55b33e3e526a00fcc81ee4a7dc, type: 3}
   playerCheckAudioClip: {fileID: 8300000, guid: 67b7870a0898e10758015968d36a2209, type: 3}
+  soundMinAndMaxDistance: {x: 1, y: 6}
